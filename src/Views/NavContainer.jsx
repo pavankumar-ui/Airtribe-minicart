@@ -22,7 +22,7 @@ function NavContainer() {
 
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
-                <a className="navbar-brand" href="/Home">
+                <a className="navbar-brand" href="/products">
 
                     <img src="src/assets/Images/Company_logo.png"
                         alt="logo"
@@ -38,11 +38,11 @@ function NavContainer() {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/Home">Home</a>
+                            <a className="nav-link active" aria-current="page" href="/products">Home</a>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/Home/about">About</a>
+                            <a className="nav-link active" aria-current="page" href="/products/about">About</a>
                         </li>
 
 
