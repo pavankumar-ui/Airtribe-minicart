@@ -1,0 +1,10 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+
+.login-background {
+    background-image: url('assets/images/Login_background.jpg');
+    min-height: 100vh;
+}
