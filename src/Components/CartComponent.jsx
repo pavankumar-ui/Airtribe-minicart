@@ -23,20 +23,20 @@ function CartComponent({ carts, setIncreaseQty, setDecreaseQty, removeProduct, t
                 <div className="col-md-12">
                     <div className="bg-white px-5 py-1">
                         <div className="d-flex justify-content-between border-bottom pb-2">
-                            <h1 className="fw-semibold fs-2">Cart List</h1>
-                            <h2 className="fw-semibold fs-2">{carts.length} Items</h2>
+                            <h1 className="text-primary fs-2">Cart List</h1>
+                            <h2 className="text-primary fs-2">{carts.length} Items</h2>
                         </div>
                         <div className="d-flex flex-wrap mt-10 mb-5">
-                            <h3 className="fw-semibold text-secondary text-uppercase w-40 fs-6">
+                            <h3 className="fw-semibold text-secondary text-uppercase w-50 fs-6">
                                 Product Details
                             </h3> &nbsp;&nbsp;
                             <h3 className="fw-semibold text-center text-secondary text-uppercase w-20 fs-6">
                                 Quantity
                             </h3>&nbsp;&nbsp;
-                            <h3 className="fw-semibold text-center text-secondary text-uppercase w-20 fs-6">
+                            <h3 className="fw-semibold text-center text-secondary text-uppercase w-30 fs-6">
                                 Price
                             </h3>&nbsp;&nbsp;
-                            <h3 className="fw-semibold text-center text-secondary text-uppercase w-20 fs-6">
+                            <h3 className="fw-semibold text-center text-secondary text-uppercase w-30 fs-6">
                                 Total
                             </h3>&nbsp;&nbsp;
                         </div>
@@ -67,7 +67,7 @@ function CartComponent({ carts, setIncreaseQty, setDecreaseQty, removeProduct, t
                                         <Space h="xl" />
                                         <Group justify="stretch" align="center" gap={5}>
                                             <Button onClick={(e) => setIncreaseQty(e, cart?.id)}>+</Button>
-                                            <NumberInput value={cart.quantity} readOnly />
+                                            <NumberInput value={cart.quantity} min={1} max={10} />
                                             <Button onClick={(e) => setDecreaseQty(e, cart?.id)}>-</Button>
                                         </Group>
 
@@ -87,7 +87,7 @@ function CartComponent({ carts, setIncreaseQty, setDecreaseQty, removeProduct, t
             )}
 
             <Link
-                to={"/Home"}
+                to={"/products"}
                 className="btn btn-primary  btn-block text-uppercase"
             >
                 Continue Shopping
