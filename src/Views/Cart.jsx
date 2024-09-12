@@ -4,6 +4,7 @@ import { Group, NumberInput, Button } from "@mantine/core";
 import { toast, ToastContainer } from "react-toastify";
 import isUserAuth from "../Utils/helpers";
 import CartComponent from "../Components/CartComponent";
+import PrivateRoutes from "../Routers/PrivateRoute";
 
 function Cart() {
     const navigate = useNavigate();
@@ -64,6 +65,7 @@ function Cart() {
     return (
 
         <>
+            <PrivateRoutes />
             <ToastContainer />
             <CartComponent
 
