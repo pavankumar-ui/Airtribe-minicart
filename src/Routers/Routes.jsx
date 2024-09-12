@@ -19,12 +19,13 @@ const routes = createBrowserRouter([
 
     },
     {
-        path: "/Home",
+        path: "/products",
         element: <AppWrapper />,
 
         children: [
 
             { // This makes the Home component render at the root "/"
+
                 element: <Home />,
                 index: true
             },
@@ -36,18 +37,11 @@ const routes = createBrowserRouter([
             {
                 path: ":productid",
                 element: <ProductDetails />
+
             },
-
-        ]
-    },
-    {
-
-        path: "/Cart",
-        element: <AppWrapper />,
-        children: [
             {
-
-                element: <PrivateRoutes><Cart /></PrivateRoutes>
+                path: "cart",
+                element: <Cart />
             },
             {
                 path: "Checkout",
@@ -57,6 +51,8 @@ const routes = createBrowserRouter([
                 path: "Wishlist",
                 element: <PrivateRoutes><Wishlist /></PrivateRoutes>
             }
+
+
         ]
     }
 ]);
