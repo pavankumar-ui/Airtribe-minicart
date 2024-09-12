@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import isUserAuth from "../Utils/helpers";
 import PropTypes from 'prop-types';
 import Cart from "./Cart";
+import { NavLink } from "react-router-dom";
 
 function NavContainer({ cartItem, setCartItem }) {
 
@@ -23,13 +24,13 @@ function NavContainer({ cartItem, setCartItem }) {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
-                <a className="navbar-brand" href="/products">
+                <NavLink className="navbar-brand" to="/products">
                     <img src="src/assets/Images/Company_logo.png"
                         alt="logo"
                         className="img-rounded-circle"
                         width="80"
                         height="60" />
-                </a>
+                </NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -37,15 +38,15 @@ function NavContainer({ cartItem, setCartItem }) {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/products">Home</a>
+                            <NavLink className="nav-link active" aria-current="page" to="/products">Home</NavLink>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/products/about">About</a>
+                            <NavLink className="nav-link active" aria-current="page" to="/products/about">About</NavLink>
                         </li>
 
                         {isUserAuth() && Cart ? (<li className="nav-item">
-                            <a className="nav-link" href="/products/cart">Cart
+                            <NavLink className="nav-link" to="/products/cart">Cart
                                 <i className="fa fa-shopping-cart">
                                     <span style={{ padding: "4px", margin: "1.5px" }}
                                         className="badge rounded-pill text-bg-danger"
@@ -54,21 +55,21 @@ function NavContainer({ cartItem, setCartItem }) {
                                         {cartItem}
                                     </span>
                                 </i>
-                            </a>
+                            </NavLink>
                         </li>) : ''}
 
                         {isUserAuth() ? (<li className="nav-item">
-                            <a className="nav-link" href="/Checkout/Wishlist">
-                                Wishlist</a>
+                            <NavLink className="nav-link" href="/Checkout/Wishlist">
+                                Wishlist</NavLink>
                         </li>) : ''}
 
                         {isUserAuth() ? (
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <NavLink className="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="fa fa-user"></i>&nbsp;Profile
-                                </a>
+                                </NavLink>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item text-danger" href="/Login"
+                                    <li><NavLink className="dropdown-item text-danger" to="/Login"
                                         onClick={() => {
                                             localStorage.removeItem('cart');
                                             localStorage.removeItem('airtribe-customer-wishlist');
@@ -77,7 +78,7 @@ function NavContainer({ cartItem, setCartItem }) {
                                         }}
                                     >
                                         <i className="fa fa-power-off"></i>
-                                        Logout</a></li>
+                                        Logout</NavLink></li>
                                 </ul>
                             </li>
                         ) : (
