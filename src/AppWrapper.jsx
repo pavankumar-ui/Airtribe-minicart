@@ -14,7 +14,6 @@ function AppWrapper() {
         <NavContainer />
         <section>
           <Outlet />
-          <Cart />
         </section>
         <Footer />
       </main>
