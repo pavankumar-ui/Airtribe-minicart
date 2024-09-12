@@ -54,28 +54,32 @@ const Home = () => {
 
     console.log(isProductAddedToCart);
     useEffect(() => {
-        if (products.length) {
 
-            const productList = products.reduce((acc, product) => {
-                acc[product.id] = false;
-                return acc;
-            }, {});
-            setIsProductAddedToCart(productList);
 
-        }
-    }, [products])
+        const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
+        setCart(savedCart);
+
+
+        // Initialize isProductAddedToCart state
+        const productStatus = savedCart.reduce((acc, item) => {
+            acc[item.id] = true;
+            return acc;
+        }, {});
+        setIsProductAddedToCart(productStatus);
+    }, []);
 
 
     //initial handling of add to cart in terms of authentication//
     const handleAddtoCart = (e, product) => {
         if (!isUserAuth()) {
             toast.error("Please login to add to cart");
-            navigate("/login");
+            //navigate("/login");
             return;
         }
 
 
         e.stopPropagation();
+
         console.log(product);
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const isProductAddedToCart = cart.find((item) => item.id === product.id);
@@ -112,7 +116,7 @@ const Home = () => {
     const handleWishlist = (e, product) => {
         e.stopPropagation();
         if (!isUserAuth()) {
-            toast.error("You are not authenticated to add to cart, please login", {
+            toast.error("You are not authenticated to wishlist, please login", {
                 position: "top-right",
             });
             return null;
@@ -128,6 +132,7 @@ const Home = () => {
             return true;
         }
 
+        //for checking the existense of the wishlist array and adding the element  to the array//
         if (wishlist.length) {
             const modifiedWishlist = [...wishlist];
             modifiedWishlist.push(product);
@@ -170,7 +175,7 @@ const Home = () => {
                                             <h6
                                                 className="card-title"
                                                 style={{ cursor: 'pointer' }}
-                                                onClick={() => navigate(`/products/${product.id}`, { preventScrollReset: false })}
+                                                onClick={() => navigate(`/Home/${product.id}`, { preventScrollReset: false })}
                                             >
                                                 {product.title}
                                             </h6>
@@ -188,41 +193,28 @@ const Home = () => {
 
 
                                                 {console.log(cart)}
-                                                {isProductAddedToCart[product.id] ?
-                                                    (
-                                                        <Button className="btn btn-primary btn-sm me-2"
-                                                            disabled="">
-                                                            Addedtocart</Button>
-                                                    ) :
-                                                    (
-                                                        (<button
-                                                            to={"/cart"}
-                                                            className="btn btn-primary btn-sm me-2"
-                                                            onClick={(e) => handleAddtoCart(e, product)}
-                                                        >
-                                                            <i className="fa fa-shopping-cart"></i>
-                                                            Add to Cart
-                                                        </button>)
-
-                                                    )
-
-                                                }
+                                                <button
+                                                    className="btn btn-primary btn-md me-2"
+                                                    onClick={(e) => handleAddtoCart(e, product)}
+                                                    disabled={isProductAddedToCart[product.id]}
+                                                >
+                                                    <i className="fa fa-shopping-cart"></i>
+                                                    {cart?.find(item => item.id === product.id)
+                                                        ? 'Added to cart' : 'Add To Cart'}
+                                                </button>
 
 
 
                                                 <Button
                                                     onClick={(e) => handleWishlist(e, product)}
                                                     color="red"
-                                                    fullWidth mt="md"
-                                                    radius="md"
+                                                    Width="sm"
+
                                                     disabled={wishlistState.find(item => item.id === product.id)}>
                                                     <i className="fa fa-heart"></i>
                                                     &nbsp;
-                                                    {wishlistState.find(item => item.id === product.id) ? 'Wishlisted' : 'Add to wishlist'}
+                                                    {wishlistState.find(item => item.id === product.id) ? 'Wishlisted' : 'Wishlist'}
                                                 </Button>
-
-
-
 
                                             </div>
                                         </div>
@@ -245,8 +237,8 @@ const Home = () => {
                     <Space h="xl" />
                 </>
             )}
+            {cart ? '' : <navigate to={'/cart'} />}
         </div>
-
 
     );
 }
