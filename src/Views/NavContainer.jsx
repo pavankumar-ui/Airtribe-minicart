@@ -65,17 +65,25 @@ function NavContainer() {
                                 Wishlist</a>
                         </li>) : ''}
 
-                        {isUserAuth() ? (
-                            <li className="nav-item">
-                                <button className="btn btn-primary" onClick={() => {
-                                    localStorage.removeItem('cart');
-                                    localStorage.removeItem('airtribe-customer-wishlist');
-                                    localStorage.removeItem('Customer');
-                                    window.location.href = '/Login';
-                                }}>
-                                    <i className="fa fa-power-off"></i> Logout
-                                </button>
-                            </li>) : (<li className="nav-item">
+                       {isUserAuth() ? (
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i className="fa fa-user"></i>&nbsp;Profile
+                                </a>
+                                <ul className="dropdown-menu">
+                                    <li><a className="dropdown-item text-danger" href="/Login"
+                                        onClick={() => {
+                                            localStorage.removeItem('cart');
+                                            localStorage.removeItem('airtribe-customer-wishlist');
+                                            localStorage.removeItem('Customer');
+                                            window.location.href = '/Login';
+                                        }}
+                                    >
+                                        <i className="fa fa-power-off"></i>
+                                        Logout</a></li>
+                                </ul>
+                            </li>
+                        ) : (<li className="nav-item">
                                 <button className="btn btn-info" onClick={() => {
                                     window.location.href = '/Login';
                                 }}>
