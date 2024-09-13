@@ -10,55 +10,50 @@ import About from "../Views/About";
 import Cart from "../Views/Cart";
 //import NewCart from "../Views/newcart";
 
-
 const routes = createBrowserRouter([
-
     {
         path: "/login",
-        element: <LoginComponent />
-
+        element: <LoginComponent />,
     },
     {
         path: "/products",
         element: <AppWrapper />,
 
         children: [
-
-            { // This makes the Home component render at the root "/"
+            {
+                // This makes the Home component render at the root "/"
 
                 element: <Home />,
-                index: true
+                index: true,
             },
             {
                 path: "about",
                 element: <About />,
-
             },
             {
                 path: ":productid",
-                element: <ProductDetails />
-
+                element: <ProductDetails />,
             },
             {
                 path: "cart",
-                element: <Cart />
+                element: <Cart />,
             },
             {
                 path: "Checkout",
-                element: <PrivateRoutes><Checkout /></PrivateRoutes>
+                element: <Checkout />,
             },
             {
                 path: "Wishlist",
-                element: <PrivateRoutes><Wishlist /></PrivateRoutes>
-            }
-
-
-        ]
-    }
+                element: (
+                    <PrivateRoutes>
+                        <Wishlist />
+                    </PrivateRoutes>
+                ),
+            },
+        ],
+    },
 ]);
 
-
-
 export default function AppRoutes() {
-    return <RouterProvider router={routes} />
+    return <RouterProvider router={routes} />;
 }

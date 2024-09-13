@@ -9,11 +9,16 @@ import PrivateRoutes from "../Routers/PrivateRoute";
 function Cart() {
     const navigate = useNavigate();
     const [total, setTotal] = useState(0);
-    const [carts, setCarts] = useState(() => JSON.parse(localStorage.getItem("cart")) || []);
+    const [carts, setCarts] = useState(
+        () => JSON.parse(localStorage.getItem("cart")) || []
+    );
 
     // Updates total cost when carts change
     useEffect(() => {
-        const totalItem = carts.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        const totalItem = carts.reduce(
+            (acc, item) => acc + item.price * item.quantity,
+            0
+        );
         setTotal(totalItem);
     }, [carts]);
 
@@ -61,14 +66,11 @@ function Cart() {
         localStorage.setItem("cart", JSON.stringify(updatedCart)); // sync with localStorage
     };
 
-
     return (
-
         <>
             <PrivateRoutes />
             <ToastContainer />
             <CartComponent
-
                 carts={carts}
                 setIncreaseQty={setIncreaseQty}
                 setDecreaseQty={setDecreaseQty}

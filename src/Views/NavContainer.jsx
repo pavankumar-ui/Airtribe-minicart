@@ -46,7 +46,7 @@ function NavContainer({ cartItem, setCartItem }) {
                         </li>
 
                         {isUserAuth() && Cart ? (<li className="nav-item">
-                            <NavLink className="nav-link" to="/products/cart">Cart
+                            <NavLink className="nav-link active" to="/products/cart">Cart
                                 <i className="fa fa-shopping-cart">
                                     <span style={{ padding: "4px", margin: "1.5px" }}
                                         className="badge rounded-pill text-bg-danger"
@@ -58,10 +58,13 @@ function NavContainer({ cartItem, setCartItem }) {
                             </NavLink>
                         </li>) : ''}
 
-                        {isUserAuth() ? (<li className="nav-item">
-                            <NavLink className="nav-link" href="/Checkout/Wishlist">
+
+                        {/* under development ......  */}
+
+                        {/*{isUserAuth() ? (<li className="nav-item">
+                            <NavLink className="nav-link" to="/products/wishlist">
                                 Wishlist</NavLink>
-                        </li>) : ''}
+                        </li>) : ''}*/}
 
                         {isUserAuth() ? (
                             <li className="nav-item dropdown">

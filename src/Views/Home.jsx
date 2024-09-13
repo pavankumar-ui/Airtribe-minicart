@@ -4,12 +4,19 @@ import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import isUserAuth from "../Utils/helpers";
-import { Pagination, Badge, Group, Space, Select, Button, LoadingOverlay } from '@mantine/core';
-import { Link } from "react-router-dom";
+import {
+    Pagination,
+    Badge,
+    Group,
+    Space,
+    Select,
+    Button,
+    LoadingOverlay,
+} from "@mantine/core";
 
 const Home = () => {
-
-    const wishlist = JSON.parse(localStorage.getItem("airtribe-customer-wishlist")) || [];
+    const wishlist =
+        JSON.parse(localStorage.getItem("airtribe-customer-wishlist")) || [];
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -18,7 +25,6 @@ const Home = () => {
     const [activePage, setActivePage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [isProductAddedToCart, setIsProductAddedToCart] = useState({});
-
 
     useEffect(() => {
         async function fetchProducts() {
@@ -43,22 +49,14 @@ const Home = () => {
         setWishlist(wishlist);
     }, [wishlist]);
 
-
     useEffect(() => {
         setLoading(true);
     }, []);
 
-
-
-
-
     console.log(isProductAddedToCart);
     useEffect(() => {
-
-
-        const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
+        const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
         setCart(savedCart);
-
 
         // Initialize isProductAddedToCart state
         const productStatus = savedCart.reduce((acc, item) => {
@@ -68,7 +66,6 @@ const Home = () => {
         setIsProductAddedToCart(productStatus);
     }, []);
 
-
     //initial handling of add to cart in terms of authentication//
     const handleAddtoCart = (e, product) => {
         if (!isUserAuth()) {
@@ -76,7 +73,6 @@ const Home = () => {
             //navigate("/login");
             return;
         }
-
 
         e.stopPropagation();
 
@@ -112,7 +108,6 @@ const Home = () => {
         }));
     };
 
-
     const handleWishlist = (e, product) => {
         e.stopPropagation();
         if (!isUserAuth()) {
@@ -122,13 +117,17 @@ const Home = () => {
             return null;
         }
 
-        const wishlist = JSON.parse(localStorage.getItem('airtribe-customer-wishlist'));
+        const wishlist = JSON.parse(
+            localStorage.getItem("airtribe-customer-wishlist")
+        );
         if (!wishlist) {
             let wishListnew = [];
             wishListnew.push(product);
-            localStorage.setItem("airtribe-customer-wishlist", JSON.stringify(wishListnew));
-            toast.success('product Added to Wishlist',
-                { position: "top-right", });
+            localStorage.setItem(
+                "airtribe-customer-wishlist",
+                JSON.stringify(wishListnew)
+            );
+            toast.success("product Added to Wishlist", { position: "top-right" });
             return true;
         }
 
@@ -136,15 +135,18 @@ const Home = () => {
         if (wishlist.length) {
             const modifiedWishlist = [...wishlist];
             modifiedWishlist.push(product);
-            localStorage.setItem('airtribe-customer-wishlist', JSON.stringify(modifiedWishlist));
+            localStorage.setItem(
+                "airtribe-customer-wishlist",
+                JSON.stringify(modifiedWishlist)
+            );
 
-            toast.success('product Added to Wishlist', {
+            toast.success("product Added to Wishlist", {
                 position: "top-right",
             });
         }
 
         return true;
-    }
+    };
 
     return (
         <div className="container-fluid">
@@ -154,28 +156,46 @@ const Home = () => {
 
             {loading ? (
                 <div className="text-center">
-                    <LoadingOverlay visible={true} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
+                    <LoadingOverlay
+                        visible={true}
+                        zIndex={1000}
+                        overlayProps={{ radius: "sm", blur: 2 }}
+                    />
                 </div>
             ) : (
                 <>
-                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4"
-                        style={{ backgroundColor: 'whitesmoke' }}>
-                        {products && products.length > 0 ?
-                            products.map(product => (
+                    <div
+                        className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4"
+                        style={{ backgroundColor: "whitesmoke" }}
+                    >
+                        {products && products.length > 0
+                            ? products.map((product) => (
                                 <div key={product.id} className="col">
                                     <div className="card h-100">
                                         <img
                                             src={product.image}
                                             alt={product.title}
                                             className="img-fluid"
-                                            style={{ objectFit: 'contain', height: '500px', cursor: 'pointer' }}
-                                            onClick={() => navigate(`/Products/${product.id}`
-                                                , { preventScrollReset: false })} />
+                                            style={{
+                                                objectFit: "contain",
+                                                height: "500px",
+                                                cursor: "pointer",
+                                            }}
+                                            onClick={() =>
+                                                navigate(`/Products/${product.id}`, {
+                                                    preventScrollReset: false,
+                                                })
+                                            }
+                                        />
                                         <div className="card-body d-flex flex-column">
                                             <h6
                                                 className="card-title"
-                                                style={{ cursor: 'pointer' }}
-                                                onClick={() => navigate(`/Home/${product.id}`, { preventScrollReset: false })}
+                                                style={{ cursor: "pointer" }}
+                                                onClick={() =>
+                                                    navigate(`/Home/${product.id}`, {
+                                                        preventScrollReset: false,
+                                                    })
+                                                }
                                             >
                                                 {product.title}
                                             </h6>
@@ -185,13 +205,12 @@ const Home = () => {
                                                     <Badge color="slateblue">{product.category}</Badge>
                                                 </div>
                                                 <div className="col">
-                                                    <h5 className="text-success mb-0">${Math.ceil(product.price)}</h5>
+                                                    <h5 className="text-success mb-0">
+                                                        ${Math.ceil(product.price)}
+                                                    </h5>
                                                 </div>
                                             </div>
                                             <div className="mt-2">
-
-
-
                                                 {console.log(cart)}
                                                 <button
                                                     className="btn btn-primary btn-md me-2"
@@ -199,47 +218,54 @@ const Home = () => {
                                                     disabled={isProductAddedToCart[product.id]}
                                                 >
                                                     <i className="fa fa-shopping-cart"></i>
-                                                    {cart?.find(item => item.id === product.id)
-                                                        ? 'Added to cart' : 'Add To Cart'}
+                                                    {cart?.find((item) => item.id === product.id)
+                                                        ? "Added to cart"
+                                                        : "Add To Cart"}
                                                 </button>
-
-
 
                                                 <Button
                                                     onClick={(e) => handleWishlist(e, product)}
                                                     color="red"
                                                     Width="sm"
-
-                                                    disabled={wishlistState.find(item => item.id === product.id)}>
+                                                    disabled={wishlistState.find(
+                                                        (item) => item.id === product.id
+                                                    )}
+                                                >
                                                     <i className="fa fa-heart"></i>
                                                     &nbsp;
-                                                    {wishlistState.find(item => item.id === product.id) ? 'Wishlisted' : 'Wishlist'}
+                                                    {wishlistState.find(
+                                                        (item) => item.id === product.id
+                                                    )
+                                                        ? "Wishlisted"
+                                                        : "Wishlist"}
                                                 </Button>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            )) : null
-                        }
+                            ))
+                            : null}
                     </div>
                     <br></br>
                     {/*pagination*/}
                     <Group gap={5} justify="center">
-                        <Pagination value={activePage} onChange={setActivePage} total={Math.ceil(500 / limit)} />
+                        <Pagination
+                            value={activePage}
+                            onChange={setActivePage}
+                            total={Math.ceil(500 / limit)}
+                        />
                         <Select
                             value={limit.toString()}
                             onChange={(value) => setLimit(Number(value))}
                             placeholder="Set Limit"
-                            data={['10', '20', '30', '40', '50']}
+                            data={["10", "20", "30", "40", "50"]}
                         />
                     </Group>
                     <Space h="xl" />
                 </>
             )}
-            {cart ? '' : <navigate to={'/cart'} />}
+            {cart ? "" : <navigate to={"/cart"} />}
         </div>
-
     );
-}
+};
 export default Home;
