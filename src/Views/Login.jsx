@@ -5,6 +5,8 @@ function LoginComponent() {
     const transferTo = useNavigate();
 
     const HandleUserLogin = (e) => {
+        e.preventDefault();
+
         const Payload = {
             email: e.target.email.value,
             password: e.target.password.value,
@@ -20,17 +22,21 @@ function LoginComponent() {
             password: "user2@Test",
         };
 
-        if (Payload.email === dummyUser1.email || Payload.email === dummyUser2.email &&
-            Payload.password === dummyUser1.password || Payload.password === dummyUser2.password) {
+        if (Payload.email === dummyUser1.email && Payload.password === dummyUser1.password
+            || Payload.email === dummyUser2.email && Payload.password === dummyUser2.password) {
 
             localStorage.setItem("Customer", "user Authenticated");
 
-            transferTo("/Home", {
+            transferTo("/products", {
                 replace: true
             })
         } else {
             alert('invalid credentials');
+            e.target.email.value = "";
+            e.target.password.value = "";
             return;
+
+
         }
 
     }
