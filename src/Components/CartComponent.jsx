@@ -4,15 +4,9 @@ import { ToastContainer } from 'react-toastify';
 import { Link } from "react-router-dom";
 
 function CartComponent({ carts, setIncreaseQty, setDecreaseQty, removeProduct, total }) {
-
-
-
-
     function shortenTitle(title, maxWords = 5) {
         return title?.split(' ').slice(0, maxWords).join(' ') || '';
     }
-
-
 
     return (
         <div className="container mt-5">
